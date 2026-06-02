@@ -5,7 +5,7 @@ const doc = {
     title: 'Campus Marketplace API',
     description: 'Users and Products API'
   },
-  host: 'your-render-app.onrender.com',
+  host: 'campusmarketplace-q8dc.onrender.com',
   schemes: ['https']
 };
 

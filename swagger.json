@@ -5,7 +5,7 @@
 "description": "REST API for managing users and products in the Campus Marketplace application.",
 "version": "1.0.0"
 },
-"host": "your-render-app.onrender.com",
+"host": "campusmarketplace-q8dc.onrender.com",
 "basePath": "/",
 "schemes": [
 "https"
