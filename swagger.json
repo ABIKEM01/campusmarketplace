@@ -1,0 +1,373 @@
+{
+"swagger": "2.0",
+"info": {
+"title": "Campus Marketplace API",
+"description": "REST API for managing users and products in the Campus Marketplace application.",
+"version": "1.0.0"
+},
+"host": "your-render-app.onrender.com",
+"basePath": "/",
+"schemes": [
+"https"
+],
+"tags": [
+{
+"name": "Users",
+"description": "User management endpoints"
+},
+{
+"name": "Products",
+"description": "Product management endpoints"
+}
+],
+"paths": {
+"/users": {
+"get": {
+"tags": ["Users"],
+"summary": "Get all users",
+"produces": ["application/json"],
+"responses": {
+"200": {
+"description": "List of users returned successfully"
+},
+"500": {
+"description": "Internal server error"
+}
+}
+},
+"post": {
+"tags": ["Users"],
+"summary": "Create a new user",
+"consumes": ["application/json"],
+"produces": ["application/json"],
+"parameters": [
+{
+"in": "body",
+"name": "body",
+"required": true,
+"schema": {
+"type": "object",
+"required": [
+"name",
+"email",
+"phone"
+],
+"properties": {
+"name": {
+"type": "string",
+"example": "John Doe"
+},
+"email": {
+"type": "string",
+"example": "[john@example.com](mailto:john@example.com)"
+},
+"phone": {
+"type": "string",
+"example": "08012345678"
+},
+"role": {
+"type": "string",
+"example": "student"
+}
+}
+}
+}
+],
+"responses": {
+"201": {
+"description": "User created successfully"
+},
+"400": {
+"description": "Validation error"
+}
+}
+}
+},
+
+
+"/users/{id}": {
+  "get": {
+    "tags": ["Users"],
+    "summary": "Get a single user by ID",
+    "produces": ["application/json"],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "User found"
+      },
+      "404": {
+        "description": "User not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  },
+
+  "put": {
+    "tags": ["Users"],
+    "summary": "Update a user",
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "body",
+        "name": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Updated User"
+            },
+            "email": {
+              "type": "string",
+              "example": "updated@example.com"
+            },
+            "phone": {
+              "type": "string",
+              "example": "08098765432"
+            },
+            "role": {
+              "type": "string",
+              "example": "student"
+            }
+          }
+        }
+      }
+    ],
+    "responses": {
+      "204": {
+        "description": "User updated successfully"
+      },
+      "400": {
+        "description": "Validation error"
+      },
+      "404": {
+        "description": "User not found"
+      }
+    }
+  },
+
+  "delete": {
+    "tags": ["Users"],
+    "summary": "Delete a user",
+    "produces": ["application/json"],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "User deleted successfully"
+      },
+      "404": {
+        "description": "User not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+},
+
+"/products": {
+  "get": {
+    "tags": ["Products"],
+    "summary": "Get all products",
+    "produces": ["application/json"],
+    "responses": {
+      "200": {
+        "description": "List of products returned successfully"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  },
+
+  "post": {
+    "tags": ["Products"],
+    "summary": "Create a new product",
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "parameters": [
+      {
+        "in": "body",
+        "name": "body",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "required": [
+            "title",
+            "description",
+            "category",
+            "price",
+            "condition",
+            "sellerName"
+          ],
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "HP EliteBook"
+            },
+            "description": {
+              "type": "string",
+              "example": "Used laptop in excellent condition"
+            },
+            "category": {
+              "type": "string",
+              "example": "Electronics"
+            },
+            "price": {
+              "type": "number",
+              "example": 450
+            },
+            "condition": {
+              "type": "string",
+              "example": "Used"
+            },
+            "sellerName": {
+              "type": "string",
+              "example": "John Doe"
+            }
+          }
+        }
+      }
+    ],
+    "responses": {
+      "201": {
+        "description": "Product created successfully"
+      },
+      "400": {
+        "description": "Validation error"
+      }
+    }
+  }
+},
+
+"/products/{id}": {
+  "get": {
+    "tags": ["Products"],
+    "summary": "Get a single product by ID",
+    "produces": ["application/json"],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Product found"
+      },
+      "404": {
+        "description": "Product not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  },
+
+  "put": {
+    "tags": ["Products"],
+    "summary": "Update a product",
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "body",
+        "name": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "price": {
+              "type": "number"
+            },
+            "condition": {
+              "type": "string"
+            },
+            "sellerName": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ],
+    "responses": {
+      "204": {
+        "description": "Product updated successfully"
+      },
+      "400": {
+        "description": "Validation error"
+      },
+      "404": {
+        "description": "Product not found"
+      }
+    }
+  },
+
+  "delete": {
+    "tags": ["Products"],
+    "summary": "Delete a product",
+    "produces": ["application/json"],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Product deleted successfully"
+      },
+      "404": {
+        "description": "Product not found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+}
+
+
+}
+}

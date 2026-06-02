@@ -1,0 +1,48 @@
+require('dotenv').config();
+
+const express = require('express');
+const cors = require('cors');
+
+const connectDB = require('./db/connect');
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+const app = express();
+
+app.use(cors());
+
+app.use(express.json());
+
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument)
+);
+
+app.use('/users', require('./routes/users'));
+app.use('/products', require('./routes/products'));
+
+app.get('/', (req, res) => {
+  res.send('Campus Marketplace API');
+});
+
+const PORT = process.env.PORT || 8080;
+
+const start = async () => {
+  try {
+
+    await connectDB(process.env.MONGODB_URI);
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+};
+
+start();
