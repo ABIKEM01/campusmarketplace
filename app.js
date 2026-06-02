@@ -24,7 +24,7 @@ app.use('/users', require('./routes/users'));
 app.use('/products', require('./routes/products'));
 
 app.get('/', (req, res) => {
-  res.send('Campus Marketplace API');
+  res.send('Welcome to the Campus Marketplace API');
 });
 
 const PORT = process.env.PORT || 8080;
