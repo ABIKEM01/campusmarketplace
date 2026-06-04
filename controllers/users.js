@@ -1,22 +1,22 @@
 const User = require("../models/users");
+const mongoose = require("mongoose");
 
-const getAllUsers = async (req, res) => {
+const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find({});
     res.status(200).json(users);
   } catch (error) {
-    throw new Error(error);
+    next(new Error(error));
   }
 };
 
-const getSingleUser = async (req, res) => {
+const getSingleUser = async (req, res, next) => {
   try {
-
     const id = req.params.id;
-    
-    if(!mongoose.Types.ObjectId.isValid(id)) {
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
-        message: 'Invalid user ID'
+        message: "Invalid user ID",
       });
     }
 
@@ -30,11 +30,11 @@ const getSingleUser = async (req, res) => {
 
     res.status(200).json(user);
   } catch (error) {
-    throw new Error(error);
+    next(new Error(error));
   }
 };
 
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   try {
     const { name, email, phone } = req.body;
 
@@ -57,27 +57,26 @@ const createUser = async (req, res) => {
       });
     }
 
-    if(error.name === 'ValidationError') {
+    if (error.name === "ValidationError") {
       return res.status(422).json({
-        message: error.message
+        message: error.message,
       });
     }
 
-    throw new Error(error);
+    next(new Error(error));
   }
 };
 
-const updateUser = async (req, res) => {
+const updateUser = async (req, res, next) => {
   try {
-    
     const id = req.params.id;
-    
-    if(!mongoose.Types.ObjectId.isValid(id)) {
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
-        message: 'Invalid user ID'
+        message: "Invalid user ID",
       });
     }
-    
+
     const user = await User.findByIdAndUpdate(id, req.body, {
       new: true,
       runValidators: true,
@@ -91,28 +90,26 @@ const updateUser = async (req, res) => {
 
     res.status(204).send();
   } catch (error) {
-
-    if(error.name === 'ValidationError') {
+    if (error.name === "ValidationError") {
       return res.status(422).json({
-        message: error.message
+        message: error.message,
       });
     }
 
-    throw new Error(error);
+    next(new Error(error));
   }
 };
 
-const deleteUser = async (req, res) => {
+const deleteUser = async (req, res, next) => {
   try {
-    
     const id = req.params.id;
-    
-    if(!mongoose.Types.ObjectId.isValid(id)) {
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
-        message: 'Invalid user ID'
+        message: "Invalid user ID",
       });
     }
-    
+
     const user = await User.findByIdAndDelete(id);
 
     if (!user) {
@@ -125,7 +122,7 @@ const deleteUser = async (req, res) => {
       message: "User deleted successfully",
     });
   } catch (error) {
-    throw new Error(error);
+    next(new Error(error));
   }
 };
 

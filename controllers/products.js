@@ -1,24 +1,22 @@
 const Product = require("../models/products");
-const mongoose = require('mongoose');
-const { handleErrors } = require("../utilities");
+const mongoose = require("mongoose");
 
-const getAllProducts = async (req, res) => {
+const getAllProducts = async (req, res, next) => {
   try {
     const products = await Product.find({});
     res.status(200).json(products);
   } catch (error) {
-    throw new Error(error);
+    next(new Error(error));
   }
 };
 
-const getSingleProduct = async (req, res) => {
+const getSingleProduct = async (req, res, next) => {
   try {
-
     const id = req.params.id;
 
-    if(!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
-        message: 'Invalid product ID'
+        message: "Invalid product ID",
       });
     }
 
@@ -31,17 +29,13 @@ const getSingleProduct = async (req, res) => {
     }
 
     res.status(200).json(product);
-
   } catch (error) {
-
-    throw new Error(error);
-
+    next(new Error(error));
   }
 };
 
-const createProduct = async (req, res) => {
+const createProduct = async (req, res, next) => {
   try {
-    
     const { title, description, category, price, condition, sellerName } =
       req.body;
 
@@ -64,28 +58,24 @@ const createProduct = async (req, res) => {
       message: "Product created successfully",
       id: product._id,
     });
-
   } catch (error) {
-
-    if(error.name === 'ValidationError') {
+    if (error.name === "ValidationError") {
       return res.status(422).json({
-        message: error.message
+        message: error.message,
       });
     }
 
-    throw new Error(error);
-
+    next(new Error(error));
   }
 };
 
-const updateProduct = async (req, res) => {
+const updateProduct = async (req, res, next) => {
   try {
-    
     const id = req.params.id;
 
-    if(!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
-        message: 'Invalid product ID'
+        message: "Invalid product ID",
       });
     }
 
@@ -102,29 +92,26 @@ const updateProduct = async (req, res) => {
 
     res.status(204).send();
   } catch (error) {
-
-    if(error.name === 'ValidationError') {
+    if (error.name === "ValidationError") {
       return res.status(422).json({
-        message: error.message
+        message: error.message,
       });
     }
 
-    throw new Error(error);
-
+    next(new Error(error));
   }
 };
 
-const deleteProduct = async (req, res) => {
+const deleteProduct = async (req, res, next) => {
   try {
-    
     const id = req.params.id;
 
-    if(!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
-        message: 'Invalid product ID'
+        message: "Invalid product ID",
       });
     }
-    
+
     const product = await Product.findByIdAndDelete(id);
 
     if (!product) {
@@ -137,9 +124,7 @@ const deleteProduct = async (req, res) => {
       message: "Product deleted successfully",
     });
   } catch (error) {
-
-    throw new Error(error);
-
+    next(new Error(error));
   }
 };
 
