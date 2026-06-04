@@ -9,16 +9,14 @@ const {
   deleteUser,
 } = require("../controllers/users");
 
-const { handleErrors } = require("../utilities/");
+router.get("/", getAllUsers);
 
-router.get("/", handleErrors(getAllUsers));
+router.get("/:id", getSingleUser);
 
-router.get("/:id", handleErrors(getSingleUser));
+router.post("/", createUser);
 
-router.post("/", handleErrors(createUser));
+router.put("/:id", updateUser);
 
-router.put("/:id", handleErrors(updateUser));
-
-router.delete("/:id", handleErrors(deleteUser));
+router.delete("/:id", deleteUser);
 
 module.exports = router;

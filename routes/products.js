@@ -9,16 +9,14 @@ const {
   deleteProduct,
 } = require("../controllers/products");
 
-const { handleErrors } = require("../utilities/");
+router.get("/", getAllProducts);
 
-router.get("/", handleErrors(getAllProducts));
+router.get("/:id", getSingleProduct);
 
-router.get("/:id", handleErrors(getSingleProduct));
+router.post("/", createProduct);
 
-router.post("/", handleErrors(createProduct));
+router.put("/:id", updateProduct);
 
-router.put("/:id", handleErrors(updateProduct));
-
-router.delete("/:id", handleErrors(deleteProduct));
+router.delete("/:id", deleteProduct);
 
 module.exports = router;

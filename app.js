@@ -25,7 +25,9 @@ app.get("/", (req, res) => {
 
 app.use((err, req, res, next) => {
   console.log("Server Error: ", err);
-  res.status(500).send("Something broke.");
+  res.status(500).json({
+    message: "Internal Server Error",
+  });
 });
 
 const PORT = process.env.PORT || 8080;
