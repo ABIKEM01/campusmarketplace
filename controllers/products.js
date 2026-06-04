@@ -1,5 +1,5 @@
 const Product = require("../models/products");
-
+const mongoose = require('mongoose');
 const { handleErrors } = require("../utilities");
 
 const getAllProducts = async (req, res) => {
@@ -13,7 +13,16 @@ const getAllProducts = async (req, res) => {
 
 const getSingleProduct = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+
+    const id = req.params.id;
+
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        message: 'Invalid product ID'
+      });
+    }
+
+    const product = await Product.findById(id);
 
     if (!product) {
       return res.status(404).json({
@@ -22,13 +31,17 @@ const getSingleProduct = async (req, res) => {
     }
 
     res.status(200).json(product);
+
   } catch (error) {
+
     throw new Error(error);
+
   }
 };
 
 const createProduct = async (req, res) => {
   try {
+    
     const { title, description, category, price, condition, sellerName } =
       req.body;
 
@@ -51,14 +64,32 @@ const createProduct = async (req, res) => {
       message: "Product created successfully",
       id: product._id,
     });
+
   } catch (error) {
+
+    if(error.name === 'ValidationError') {
+      return res.status(422).json({
+        message: error.message
+      });
+    }
+
     throw new Error(error);
+
   }
 };
 
 const updateProduct = async (req, res) => {
   try {
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    
+    const id = req.params.id;
+
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        message: 'Invalid product ID'
+      });
+    }
+
+    const product = await Product.findByIdAndUpdate(id, req.body, {
       new: true,
       runValidators: true,
     });
@@ -71,13 +102,30 @@ const updateProduct = async (req, res) => {
 
     res.status(204).send();
   } catch (error) {
+
+    if(error.name === 'ValidationError') {
+      return res.status(422).json({
+        message: error.message
+      });
+    }
+
     throw new Error(error);
+
   }
 };
 
 const deleteProduct = async (req, res) => {
   try {
-    const product = await Product.findByIdAndDelete(req.params.id);
+    
+    const id = req.params.id;
+
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        message: 'Invalid product ID'
+      });
+    }
+    
+    const product = await Product.findByIdAndDelete(id);
 
     if (!product) {
       return res.status(404).json({
@@ -89,7 +137,9 @@ const deleteProduct = async (req, res) => {
       message: "Product deleted successfully",
     });
   } catch (error) {
+
     throw new Error(error);
+
   }
 };
 

@@ -11,7 +11,16 @@ const getAllUsers = async (req, res) => {
 
 const getSingleUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+
+    const id = req.params.id;
+    
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        message: 'Invalid user ID'
+      });
+    }
+
+    const user = await User.findById(id);
 
     if (!user) {
       return res.status(404).json({
@@ -48,13 +57,28 @@ const createUser = async (req, res) => {
       });
     }
 
+    if(error.name === 'ValidationError') {
+      return res.status(422).json({
+        message: error.message
+      });
+    }
+
     throw new Error(error);
   }
 };
 
 const updateUser = async (req, res) => {
   try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    
+    const id = req.params.id;
+    
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        message: 'Invalid user ID'
+      });
+    }
+    
+    const user = await User.findByIdAndUpdate(id, req.body, {
       new: true,
       runValidators: true,
     });
@@ -67,13 +91,29 @@ const updateUser = async (req, res) => {
 
     res.status(204).send();
   } catch (error) {
+
+    if(error.name === 'ValidationError') {
+      return res.status(422).json({
+        message: error.message
+      });
+    }
+
     throw new Error(error);
   }
 };
 
 const deleteUser = async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
+    
+    const id = req.params.id;
+    
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        message: 'Invalid user ID'
+      });
+    }
+    
+    const user = await User.findByIdAndDelete(id);
 
     if (!user) {
       return res.status(404).json({
