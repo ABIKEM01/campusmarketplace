@@ -1,0 +1,44 @@
+### Base URL
+@baseUrl = http://localhost:8080
+# @baseUrl = https://campusmarketplace-q8dc.onrender.com
+
+### Get all products
+GET {{baseUrl}}/products
+
+### Get one product by id
+GET {{baseUrl}}/products/PUT_A_REAL_ID_HERE
+
+### Create a new product (valid data)
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "title": "Used Textbook",
+  "description": "Calculus book, good condition",
+  "category": "Books",
+  "price": 20,
+  "condition": "used",
+  "images": ["https://example.com/book.png"],
+  "sellerId": "PUT_A_REAL_USER_ID_HERE",
+  "status": "available"
+}
+
+### Create a new product (missing fields, should return 400)
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "title": "Broken Item"
+}
+
+### Update a product
+PUT {{baseUrl}}/products/PUT_A_REAL_ID_HERE
+Content-Type: application/json
+
+{
+  "price": 15,
+  "status": "sold"
+}
+
+### Delete a product
+DELETE {{baseUrl}}/products/PUT_A_REAL_ID_HERE
