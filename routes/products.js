@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 const {
@@ -6,17 +6,19 @@ const {
   getSingleProduct,
   createProduct,
   updateProduct,
-  deleteProduct
-} = require('../controllers/products');
+  deleteProduct,
+} = require("../controllers/products");
 
-router.get('/', getAllProducts);
+const { handleErrors } = require("../utilities/");
 
-router.get('/:id', getSingleProduct);
+router.get("/", handleErrors(getAllProducts));
 
-router.post('/', createProduct);
+router.get("/:id", handleErrors(getSingleProduct));
 
-router.put('/:id', updateProduct);
+router.post("/", handleErrors(createProduct));
 
-router.delete('/:id', deleteProduct);
+router.put("/:id", handleErrors(updateProduct));
+
+router.delete("/:id", handleErrors(deleteProduct));
 
 module.exports = router;
