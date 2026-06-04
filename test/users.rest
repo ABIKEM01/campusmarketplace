@@ -1,0 +1,45 @@
+### Base URL
+### Use local when you run the app on your machine.
+### Comment the local line and use the Render line to test the live site.
+@baseUrl = http://localhost:8080
+# @baseUrl = https://campusmarketplace-q8dc.onrender.com
+
+### Get all users
+GET {{baseUrl}}/users
+
+### Get one user by id
+### Put a real user id from your database here.
+GET {{baseUrl}}/users/PUT_A_REAL_ID_HERE
+
+### Create a new user (valid data)
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "role": "user",
+  "phone": "010-1234-5678",
+  "profileImage": "https://example.com/image.png"
+}
+
+### Create a new user (missing email, should return 400)
+### This one checks that validation and error handling work.
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "No Email User"
+}
+
+### Update a user
+PUT {{baseUrl}}/users/PUT_A_REAL_ID_HERE
+Content-Type: application/json
+
+{
+  "name": "John Updated",
+  "phone": "010-0000-0000"
+}
+
+### Delete a user
+DELETE {{baseUrl}}/users/PUT_A_REAL_ID_HERE
