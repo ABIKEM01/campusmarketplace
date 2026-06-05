@@ -10,27 +10,32 @@
   "schemes": [
     "https"
   ],
-  "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
+  "tags": [
+    {
+      "name": "users",
+      "description": "Users endpoints"
     },
+    {
+      "name": "products",
+      "description": "Products endpoints"
+    }
+  ],
+  "paths": {
     "/users/": {
       "get": {
+        "tags": ["users"],
         "description": "",
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
       "post": {
+        "tags": ["users"],
         "description": "",
         "parameters": [
           {
@@ -61,12 +66,16 @@
           },
           "422": {
             "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
     "/users/{id}": {
       "get": {
+        "tags": ["users"],
         "description": "",
         "parameters": [
           {
@@ -85,10 +94,14 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
       "put": {
+        "tags": ["users"],
         "description": "",
         "parameters": [
           {
@@ -96,6 +109,24 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "phone": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -110,10 +141,14 @@
           },
           "422": {
             "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
       "delete": {
+        "tags": ["users"],
         "description": "",
         "parameters": [
           {
@@ -132,20 +167,28 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
     "/products/": {
       "get": {
+        "tags": ["products"],
         "description": "",
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
       "post": {
+        "tags": ["products"],
         "description": "",
         "parameters": [
           {
@@ -185,12 +228,16 @@
           },
           "422": {
             "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
     "/products/{id}": {
       "get": {
+        "tags": ["products"],
         "description": "",
         "parameters": [
           {
@@ -209,10 +256,14 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
       "put": {
+        "tags": ["products"],
         "description": "",
         "parameters": [
           {
@@ -220,6 +271,33 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "category": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                },
+                "condition": {
+                  "example": "any"
+                },
+                "sellerName": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -234,10 +312,14 @@
           },
           "422": {
             "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
       "delete": {
+        "tags": ["products"],
         "description": "",
         "parameters": [
           {
@@ -256,6 +338,9 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
