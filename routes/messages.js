@@ -14,7 +14,7 @@ router.get("/", getAllMessages);
 
 router.get("/:id", getSingleMessage);
 
-router.post("/", isAuthenticated,createMessage);
+router.post("/", createMessage);
 
 router.put("/:id", isAuthenticated,updateMessage);
 
