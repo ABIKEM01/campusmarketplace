@@ -8,7 +8,6 @@ const {
   updateMessage,
   deleteMessage
 } = require("../controllers/messages");
-const isAuthenticated = require('../middleware/auth');
 
 router.get("/", getAllMessages);
 
@@ -16,8 +15,8 @@ router.get("/:id", getSingleMessage);
 
 router.post("/", createMessage);
 
-router.put("/:id", isAuthenticated,updateMessage);
+router.put("/:id", updateMessage);
 
-router.delete("/:id", isAuthenticated,deleteMessage);
+router.delete("/:id", deleteMessage);
 
 module.exports = router;

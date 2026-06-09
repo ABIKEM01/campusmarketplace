@@ -20,7 +20,7 @@ app.use("/users", require("./routes/users"));
 app.use("/products", require("./routes/products"));
 app.use("/favorites", require("./routes/favorites"));
 app.use("/messages", require("./routes/messages"));
-app.use("/auth", require("./routes/auth"));
+
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Campus Marketplace API");
