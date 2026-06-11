@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const getAllMessages = async (req, res) => {
   try {
     const messages = await Message.find({});
-    res.status(200).json(messages);
+    return res.status(200).json(messages);
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -12,6 +13,7 @@ const getAllMessages = async (req, res) => {
 
 const getSingleMessage = async (req, res) => {
   try {
+
     const id = req.params.id;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -29,6 +31,7 @@ const getSingleMessage = async (req, res) => {
     }
 
     res.status(200).json(message);
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -36,6 +39,7 @@ const getSingleMessage = async (req, res) => {
 
 const createMessage = async (req, res) => {
   try {
+    
     const {
       senderId,
       receiverId,
@@ -60,8 +64,16 @@ const createMessage = async (req, res) => {
       message: "Message created successfully",
       id: newMessage._id
     });
+
   } catch (error) {
-    res.status(400).json({
+    
+    if (error.name === "ValidationError") {
+      return res.status(422).json({
+        message: error.message,
+      });
+    }
+
+    res.status(500).json({
       message: error.message
     });
   }
@@ -69,8 +81,17 @@ const createMessage = async (req, res) => {
 
 const updateMessage = async (req, res) => {
   try {
+
+    const id = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        message: "Invalid message ID"
+      });
+    }
+
     const message = await Message.findByIdAndUpdate(
-      req.params.id,
+      id,
       req.body,
       {
         new: true,
@@ -84,8 +105,16 @@ const updateMessage = async (req, res) => {
       });
     }
 
-    res.status(204).send();
+    return res.status(204).send();
+
   } catch (error) {
+
+    if (error.name === "ValidationError") {
+      return res.status(422).json({
+        message: error.message,
+      });
+    }
+
     res.status(400).json({
       message: error.message
     });
@@ -94,9 +123,16 @@ const updateMessage = async (req, res) => {
 
 const deleteMessage = async (req, res) => {
   try {
-    const message = await Message.findByIdAndDelete(
-      req.params.id
-    );
+
+    const id = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        message: "Invalid message ID"
+      });
+    }
+
+    const message = await Message.findByIdAndDelete(id);
 
     if (!message) {
       return res.status(404).json({
@@ -104,9 +140,10 @@ const deleteMessage = async (req, res) => {
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Message deleted successfully"
     });
+
   } catch (error) {
     res.status(500).json({
       message: error.message
