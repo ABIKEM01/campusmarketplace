@@ -10,8 +10,41 @@
   "schemes": [
     "https"
   ],
-  "tags": ["users", "products", "favorites", "messages"],
+  "tags": ["authorization", "users", "products", "favorites", "messages"],
   "paths": {
+    "/oauth2/login": {
+      "get": {
+        "tags": ["authorization"],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/oauth2/redirect/google": {
+      "get": {
+        "tags": ["authorization"],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/oauth2/logout": {
+      "get": {
+        "tags": ["authorization"],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/users/": {
       "get": {
         "tags": ["users"],
