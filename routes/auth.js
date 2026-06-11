@@ -47,7 +47,10 @@ passport.use(
         } else {
           const user = await User.findOne({ _id: fc.userId });
 
-          if (!user) return cb(null, false);
+          if (!user) {
+            const deleteResult = await FederatedCredential.deleteOne(fc);
+            return cb(null, false);
+          }
           return cb(null, user);
         }
       } catch (err) {
