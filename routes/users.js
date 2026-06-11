@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const { isAuthenticated } = require("../middleware/auth");
+
 const {
   getAllUsers,
   getSingleUser,
@@ -13,10 +15,10 @@ router.get("/", getAllUsers);
 
 router.get("/:id", getSingleUser);
 
-router.post("/", createUser);
+router.post("/", isAuthenticated, createUser);
 
-router.put("/:id", updateUser);
+router.put("/:id", isAuthenticated, updateUser);
 
-router.delete("/:id", deleteUser);
+router.delete("/:id", isAuthenticated, deleteUser);
 
 module.exports = router;
