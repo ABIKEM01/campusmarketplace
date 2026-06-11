@@ -5,13 +5,13 @@ const FavoriteSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: true
+      required: [true, "User ID is required"]
     },
 
     productId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Product',
-      required: true
+      required: [true, "Product ID is required"]
     }
   },
   { timestamps: true }

@@ -5,25 +5,25 @@ const MessageSchema = new mongoose.Schema(
     senderId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: true
+      required: [true, "Sender ID is required"]
     },
 
     receiverId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: true
+      required: [true, "Reciever ID is required"]
     },
 
     productId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Product',
-      required: true
+      required: [true, "Product ID is required"]
     },
 
     message: {
       type: String,
-      required: true,
-      minlength: 2
+      required: [true, "You must write a message"],
+      minlength: [2, "Your message must be at least 2 characters long"]
     },
 
     isRead: {
