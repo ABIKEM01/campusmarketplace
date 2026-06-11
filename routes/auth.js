@@ -12,7 +12,7 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: process.env.GOOGLE_CALLBACK_URL,
-      scope: ["profile"],
+      scope: ["profile", "email"],
     },
     async (issuer, profile, cb) => {
       try {
@@ -24,7 +24,7 @@ passport.use(
         if (!fc) {
           const addResult = await User.insertOne({
             name: profile.displayName,
-            email: "default@default.com",
+            email: profile.emails[0]?.value,
             phone: "+1000000000",
           });
 
