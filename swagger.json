@@ -353,6 +353,7 @@
     },
     "/favorites/": {
       "get": {
+        "tags": ["favorites"],
         "description": "",
         "responses": {
           "200": {
@@ -364,6 +365,7 @@
         }
       },
       "post": {
+        "tags": ["favorites"],
         "description": "",
         "parameters": [
           {
@@ -400,6 +402,7 @@
     },
     "/favorites/{id}": {
       "get": {
+        "tags": ["favorites"],
         "description": "",
         "parameters": [
           {
@@ -425,6 +428,7 @@
         }
       },
       "put": {
+        "tags": ["favorites"],
         "description": "",
         "parameters": [
           {
@@ -468,6 +472,7 @@
         }
       },
       "delete": {
+        "tags": ["favorites"],
         "description": "",
         "parameters": [
           {
@@ -495,6 +500,7 @@
     },
     "/messages/": {
       "get": {
+        "tags": ["messages"],
         "description": "",
         "responses": {
           "200": {
@@ -506,6 +512,7 @@
         }
       },
       "post": {
+        "tags": ["messages"],
         "description": "",
         "parameters": [
           {
@@ -548,6 +555,7 @@
     },
     "/messages/{id}": {
       "get": {
+        "tags": ["messages"],
         "description": "",
         "parameters": [
           {
@@ -573,6 +581,7 @@
         }
       },
       "put": {
+        "tags": ["messages"],
         "description": "",
         "parameters": [
           {
@@ -622,6 +631,7 @@
         }
       },
       "delete": {
+        "tags": ["messages"],
         "description": "",
         "parameters": [
           {
