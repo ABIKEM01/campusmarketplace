@@ -5,44 +5,44 @@ const UserSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, "Name is required"],
-      minlength: [6, "Name must be at least 6 characters long"]
+      minlength: [1, "Name must be at least 1 characters long"],
     },
 
     email: {
       type: String,
       required: [true, "Email is required"],
       unique: true,
-      match: [/.+@.+\..+/, "Provide a valid email address"]
+      match: [/.+@.+\..+/, "Provide a valid email address"],
     },
 
     phone: {
       type: String,
       required: [true, "Phone number is required"],
-      minlength: [8, "Phone number must be at least 8 characters"]
+      minlength: [8, "Phone number must be at least 8 characters"],
     },
 
     role: {
       type: String,
       enum: {
         values: ["student", "admin"],
-        message: "Role must be student or admin"
+        message: "Role must be student or admin",
       },
-      default: "student"
+      default: "student",
     },
 
     profileImage: {
       type: String,
-      default: ""
+      default: "",
     },
 
     githubId: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
 module.exports = mongoose.model("User", UserSchema);
