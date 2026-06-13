@@ -4,8 +4,8 @@
   "description": "CSE341 Team 11 Final Project",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "node init && node app.js",
+    "dev": "node init && nodemon app.js",
     "swagger": "node swagger.js",
     "test": "jest --runInBand"
   },
@@ -25,6 +25,6 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "nodemon": "^3.1.10",
-    "supertest": "^7.1.1"
+    "supertest": "^7.2.2"
   }
 }
